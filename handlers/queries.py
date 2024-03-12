@@ -32,4 +32,5 @@ async def stop_notice(callback: types.CallbackQuery):
     article = callback.data.split('_')[1]
     user_id = callback.message.chat.id
     callback.bot.db_control.add(User(user_id=user_id, article=article))
+    callback.bot.db_control.commit()
     await callback.message.reply(f'Вы были подписаны на {article}')

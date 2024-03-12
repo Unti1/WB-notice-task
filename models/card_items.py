@@ -21,7 +21,6 @@ class WB_item(Base):
         self.price: int = kwargs.get('price', '')
         self.rating: float = kwargs.get('reviewRating', '')
         sizes: list[dict] = kwargs.get('sizes') 
-        print(json.dumps(sizes,ensure_ascii=False, indent=4))
         self.stock: dict = self.get_stocks(sizes)
 
     def get_stocks(self, sizes):
