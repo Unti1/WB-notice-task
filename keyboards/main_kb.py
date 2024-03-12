@@ -15,3 +15,9 @@ def home_kb():
     )
 
     return builder.as_markup()
+
+def subscribe(articule):
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text="Подписаться на рассылку", callback_data=f'subscribe_{articule}'))
+    return builder.as_markup()
+    
