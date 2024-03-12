@@ -7,6 +7,7 @@ from settings import *
 Base = declarative_base()
 
 def database_init():
+    from models.card_items import WB_item
     # Создание сессии базы данных
     engine = create_engine(DATABASE_URL, echo=True)  # Здесь можно указать другой URL базы данных
     Base.metadata.create_all(engine)  # Создание таблицы, если она еще не существует
