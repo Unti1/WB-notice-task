@@ -12,14 +12,14 @@ class WB_item(Base):
     article = Column(String)  # Артикул товара
     price = Column(Float)  # Цена товара
     rating = Column(Float)  # Рейтинг товара
-    stock = Column(Integer)  # Количество товара на всех складах
+    stock = Column(JSON)  # Количество товара на всех складах
 
     def __init__(self, user_id, **kwargs):
-        self.user_id = user_id
+        self.user_id = int(user_id)
         self.name: str = kwargs.get('name', '')
-        self.article: int = kwargs.get('id', '')
-        self.price: int = kwargs.get('price', '')
-        self.rating: float = kwargs.get('reviewRating', '')
+        self.article: int = str(kwargs.get('id', ''))
+        self.price: float = float(kwargs.get('salePriceU')) if kwargs.get('salePriceU') else kwargs.get('priceU','0')
+        self.rating: float = float(kwargs.get('reviewRating', ''))
         sizes: list[dict] = kwargs.get('sizes') 
         self.stock: dict = self.get_stocks(sizes)
 
@@ -39,5 +39,5 @@ class WB_item(Base):
 
     def __str__(self):
         import json
-        return f'Товар: {self.name}\n[{self.article}]\nЦена:{self.price}\nРейтинг:{self.rating}\nВ наличии есть размеры: {json.dumps(self.stock)}'
+        return f'Товар: {self.name}\n[{self.article}]\nЦена:{self.price}\nРейтинг:{self.rating}\nВ наличии есть размеры: {json.dumps(self.stock, ensure_ascii=False, indent=4)}'
     
